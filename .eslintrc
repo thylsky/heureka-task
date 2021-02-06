@@ -1,4 +1,7 @@
 {
+  "env": {
+    "jest": true
+  },
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "airbnb-typescript/base",
@@ -6,7 +9,8 @@
     "prettier/@typescript-eslint",
     "prettier/react",
     "plugin:prettier/recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:jest/recommended"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
