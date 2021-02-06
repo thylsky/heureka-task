@@ -24,7 +24,7 @@ const Logo = styled.img`
 const LoginLink = styled.a`
   transition: 0.2s color;
   :hover {
-    color: ${({ theme }) => theme.main};
+    color: ${({ theme }) => theme.colors.main};
   }
 `;
 
