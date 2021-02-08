@@ -32,7 +32,10 @@ const Header = () => (
   <Wrapper>
     <HomeLink href="/" passHref>
       <a>
-        <Logo src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png" />
+        <Logo
+          src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
+          alt="Logo"
+        />
       </a>
     </HomeLink>
     <Link href="/login" passHref>
