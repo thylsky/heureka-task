@@ -4,6 +4,15 @@ import { db } from '../lib/db';
 export type Product = {
   title: string;
   description: string;
+  slug: string;
+  image: {
+    url: string;
+    alt: string;
+  };
+  price: {
+    value: number;
+    currency: string;
+  };
   createdAt: Date;
   updatedAt: Date;
 };
@@ -45,6 +54,24 @@ export const getProductById = async (id: string) => {
   }
 
   return [];
+};
+
+export const getProductBySlug = async (slug: string) => {
+  return db
+    .collection('product')
+    .where('slug', '==', slug)
+    .get()
+    .then(querySnapshot => {
+      const data: Product[] = [];
+      querySnapshot.forEach(doc => {
+        data.push(doc.data() as Product);
+      });
+
+      return data[0];
+    })
+    .catch(error => {
+      console.error('Error getting documents: ', error);
+    });
 };
 
 export const listenToProducts = (observer: Observer) =>

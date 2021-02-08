@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { DocumentData, QuerySnapshot } from '@firebase/firestore-types';
+import { QuerySnapshot } from '@firebase/firestore-types';
 
 import { listenToProducts, Product } from 'db/product';
+import Container from 'components/UI/Container';
+
+import ProductCard from './ProductCard';
+import { Wrapper } from './ProductList.styles';
 
 const ProductList = () => {
-  const [products, setProducts] = useState<DocumentData>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string>();
 
   useEffect(() => {
@@ -13,19 +17,21 @@ const ProductList = () => {
         const updatedProducts = querySnapshot.docs.map(docSnapshot =>
           docSnapshot.data()
         );
-        setProducts(updatedProducts);
+        setProducts(updatedProducts as Product[]);
       },
       error: () => setError('products-list-get-fail'),
     });
   }, [setProducts]);
 
   return (
-    <div>
-      {error && <div style={{ color: 'red' }}>{error}</div>}
-      {products.map((product: Product, i: number) => (
-        <div key={i}>{product.title}</div>
-      ))}
-    </div>
+    <Container>
+      <Wrapper>
+        {error && <div style={{ color: 'red' }}>{error}</div>}
+        {products.map((product, i: number) => (
+          <ProductCard key={i} product={product} />
+        ))}
+      </Wrapper>
+    </Container>
   );
 };
 
