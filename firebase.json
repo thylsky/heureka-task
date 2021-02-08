@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "build",
+    "site": "ckkrabfqm000001mn34dmelv0",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  },
+  "remoteconfig": {
+    "template": "remoteconfig.template.json"
+  }
+}
