@@ -1,43 +1,25 @@
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import styled from 'styled-components';
+import React, { useCallback } from 'react';
+import { auth } from 'lib/auth';
 
-const Wrapper = styled.header`
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  place-items: center start;
-  border-bottom: 2px solid rgb(243 244 246);
-  padding: 8px 16px;
+import { HomeLink, Logo, LogoutButton, Wrapper } from './Header.styles';
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}) {
-    padding: 24px 64px;
-  }
-`;
+const Header = () => {
+  const handleLogout = useCallback(async () => {
+    await auth.signOut();
+  }, []);
 
-const HomeLink = styled(Link)``;
-
-const Logo = styled(Image)``;
-
-const LoginLink = styled.a`
-  transition: 0.2s color;
-  :hover {
-    color: ${({ theme }) => theme.colors.main};
-  }
-`;
-
-const Header = () => (
-  <Wrapper>
-    <HomeLink href="/" passHref>
-      <a>
-        <Logo src="/logo.png" alt="Heureka" width={180} height={40} />
-      </a>
-    </HomeLink>
-    <Link href="/login" passHref>
-      <LoginLink title="Login">Login</LoginLink>
-    </Link>
-  </Wrapper>
-);
+  return (
+    <Wrapper>
+      <HomeLink href="/" passHref>
+        <a>
+          <Logo src="/logo.png" alt="Heureka" width={180} height={40} />
+        </a>
+      </HomeLink>
+      <LogoutButton title="Logout" onClick={handleLogout}>
+        Logout
+      </LogoutButton>
+    </Wrapper>
+  );
+};
 
 export default Header;

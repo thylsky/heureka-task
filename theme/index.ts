@@ -3,6 +3,7 @@ const theme = {
     main: '#009cd3',
     semiDarkMain: '#0084b3',
     darkMain: '#0079ad',
+    disabled: '#8d8d8d',
   },
   breakpoints: {
     xs: '480px',

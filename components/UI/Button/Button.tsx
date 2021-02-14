@@ -24,6 +24,13 @@ const Button = styled.button`
   :active {
     background-color: ${({ theme }) => theme.colors.darkMain};
   }
+
+  :disabled,
+  &[disabled] {
+    background-color: ${({ theme }) => theme.colors.disabled};
+    cursor: default;
+    box-shadow: none;
+  }
 `;
 
 export default Button;
