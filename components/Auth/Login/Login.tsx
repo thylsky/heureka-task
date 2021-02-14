@@ -2,17 +2,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import Input from 'components/UI/Input';
+import ErrorMessage from 'components/UI/ErrorMessage';
+import FormInput from 'components/UI/Input';
 
 import { auth } from 'lib/auth';
-import {
-  Card,
-  ErrorMessage,
-  Logo,
-  LogoWrapper,
-  Wrapper,
-  SubmitButton,
-} from './Login.styles';
+import { Card, Logo, LogoWrapper, Wrapper, SubmitButton } from './Login.styles';
 
 type FormValues = {
   email: string;
@@ -74,7 +68,7 @@ const Login = () => {
 
         <form onSubmit={handleSubmit}>
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          <Input
+          <FormInput
             onChange={handleChange}
             label="E-mail"
             name="email"
@@ -83,7 +77,7 @@ const Login = () => {
             required
           />
 
-          <Input
+          <FormInput
             onChange={handleChange}
             label="Password"
             name="password"
