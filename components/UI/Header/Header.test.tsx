@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import Header from './Header';
 
-import theme from 'styles/theme';
+import theme from 'theme';
 
 test('Test Header Renders', async () => {
   render(

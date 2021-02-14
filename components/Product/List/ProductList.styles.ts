@@ -1,10 +1,17 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const TitleSwitchWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin-bottom: 16px;
+`;
+
+export const ProductCardWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   place-items: center;
   gap: 16px;
+
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}) {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -29,11 +36,6 @@ export const Card = styled.a`
 
   @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
     margin-top: 0;
-    max-width: 300px;
-  }
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
-    max-width: 400px;
   }
 `;
 

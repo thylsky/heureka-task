@@ -10,7 +10,7 @@ import { auth } from 'lib/auth';
 import firebase from 'lib/firebase';
 import AppContext from 'context/AppContext';
 
-import theme from 'styles/theme';
+import theme from 'theme';
 import 'styles/reset.css';
 import 'styles/globals.css';
 

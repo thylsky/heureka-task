@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { QuerySnapshot } from '@firebase/firestore-types';
 
-import { listenToProducts, Product } from 'db/product';
 import Container from 'components/UI/Container';
+import Title from 'components/UI/Title/';
+import Switch from 'components/UI/Switch';
+
+import { listenToProducts, Product } from 'db/product';
 
 import ProductCard from './ProductCard';
-import { Wrapper } from './ProductList.styles';
+import ProductTable from './ProductTable';
+import { ProductCardWrapper, TitleSwitchWrapper } from './ProductList.styles';
+
+const SWITCH_OPTIONS = [
+  { value: 'table', label: 'Table' },
+  { value: 'grid', label: 'Grid' },
+];
 
 const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string>();
+  const [displayMode, setDisplayMode] = useState<string>('table');
+  const { push } = useRouter();
 
   useEffect(() => {
     return listenToProducts({
@@ -23,14 +35,33 @@ const ProductList = () => {
     });
   }, [setProducts]);
 
+  const onRowClick = (item: Product) => {
+    push('/[slug]', `/${item.slug}`);
+  };
+
   return (
     <Container>
-      <Wrapper>
-        {error && <div style={{ color: 'red' }}>{error}</div>}
-        {products.map((product, i: number) => (
-          <ProductCard key={i} product={product} />
-        ))}
-      </Wrapper>
+      <TitleSwitchWrapper>
+        <Title>List of Products</Title>
+        <Switch
+          options={SWITCH_OPTIONS}
+          onButtonClick={setDisplayMode}
+          checked={displayMode}
+        />
+      </TitleSwitchWrapper>
+      {error && <div style={{ color: 'red' }}>{error}</div>}
+
+      {displayMode === 'table' && (
+        <ProductTable products={products} onRowClick={onRowClick} />
+      )}
+
+      {displayMode === 'grid' && (
+        <ProductCardWrapper>
+          {products.map((product, i: number) => (
+            <ProductCard key={i} product={product} />
+          ))}
+        </ProductCardWrapper>
+      )}
     </Container>
   );
 };

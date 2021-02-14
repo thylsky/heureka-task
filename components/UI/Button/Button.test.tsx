@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 
 import Button from './Button';
 
-import theme from 'styles/theme';
+import theme from 'theme';
 
 test('Test Button Renders', async () => {
   render(
