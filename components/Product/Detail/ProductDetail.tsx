@@ -7,7 +7,6 @@ type Props = {
 };
 
 const ProductDetail = ({ product }: Props) => {
-  console.log(product);
   return <>{product.title}</>;
 };
 

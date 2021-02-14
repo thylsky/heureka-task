@@ -17,7 +17,6 @@ const Home: NextPage = () => {
     }
   }, [product, query.slug, setProduct]);
 
-  console.log(product);
   if (!product) return <>Loading</>;
 
   return (
