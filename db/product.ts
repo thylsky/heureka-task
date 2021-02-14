@@ -2,6 +2,7 @@ import { FirestoreError, QuerySnapshot } from '@firebase/firestore-types';
 import { db } from '../lib/db';
 
 export type Product = {
+  id?: string;
   title: string;
   description: string;
   slug: string;
@@ -13,8 +14,8 @@ export type Product = {
     value: number;
     currency: string;
   };
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 };
 
 export type Observer = {
@@ -24,11 +25,27 @@ export type Observer = {
 };
 
 export const createProduct = async (product: Product) => {
+  const now = new Date();
   try {
-    const docRef = await db.collection('product').add(product);
+    const docRef = await db
+      .collection('product')
+      .add({ ...product, createdAt: now, updatedAt: now });
     console.log('Document written with ID: ', docRef.id);
   } catch (error) {
     console.error('Error adding document: ', error);
+  }
+};
+
+export const updateProduct = async (id: string, product: Product) => {
+  const now = new Date();
+  try {
+    const docRef = await db
+      .collection('product')
+      .doc(id)
+      .set({ ...product, updatedAt: now });
+    console.log('Document updated with ID: ', docRef);
+  } catch (error) {
+    console.error('Error updating document: ', error);
   }
 };
 
@@ -64,7 +81,7 @@ export const getProductBySlug = async (slug: string) => {
     .then(querySnapshot => {
       const data: Product[] = [];
       querySnapshot.forEach(doc => {
-        data.push(doc.data() as Product);
+        data.push({ id: doc.id, ...doc.data() } as Product);
       });
 
       return data[0];

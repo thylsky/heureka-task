@@ -22,7 +22,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Heureka Testing Task</title>
+        <title>{product.title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
