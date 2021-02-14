@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
+import Input from 'components/UI/Input';
+
 import { auth } from 'lib/auth';
 import {
   Card,
   ErrorMessage,
-  Input,
-  Label,
   Logo,
   LogoWrapper,
   Wrapper,
@@ -67,25 +67,25 @@ const Login = () => {
         <LogoWrapper>
           <Link href="/" passHref>
             <a title="Home">
-              <Logo src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png" />
+              <Logo src="/logo.png" alt="Heureka" height={40} width={180} />
             </a>
           </Link>
         </LogoWrapper>
 
         <form onSubmit={handleSubmit}>
           {error && <ErrorMessage>{error}</ErrorMessage>}
-          <Label htmlFor="email">E-mail</Label>
           <Input
             onChange={handleChange}
+            label="E-mail"
             name="email"
             type="email"
             autoComplete="off"
             required
           />
 
-          <Label htmlFor="password">Password</Label>
           <Input
             onChange={handleChange}
+            label="Password"
             name="password"
             type="password"
             required

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Image from 'next/image';
 
 import Button from 'components/UI/Button';
 
@@ -23,12 +24,10 @@ export const LogoWrapper = styled.div`
   padding-top: 16px;
   padding-bottom: 24px;
   width: 100%;
+  text-align: center;
 `;
 
-export const Logo = styled.img`
-  max-width: 200px;
-  margin: 0 auto;
-`;
+export const Logo = styled(Image)``;
 
 export const ErrorMessage = styled.div`
   width: 100%;
@@ -36,25 +35,6 @@ export const ErrorMessage = styled.div`
   color: #dc0030;
   margin-bottom: 16px;
   padding: 8px;
-  border-radius: 6px;
-`;
-
-export const Label = styled.label`
-  display: block;
-  font-size: 13px;
-  line-height: 19px;
-  color: rgb(0 0 0 / 50%);
-`;
-
-export const Input = styled.input`
-  width: 100%;
-  margin-bottom: 24px;
-  padding: 8px 16px;
-  line-height: 30px;
-  border: 2px solid #8d8d8d;
-  border-top-color: #747474;
-  background: #fff;
-  color: #000;
   border-radius: 6px;
 `;
 
