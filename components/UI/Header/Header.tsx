@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import styled from 'styled-components';
 
 const Wrapper = styled.header`
@@ -17,9 +18,7 @@ const Wrapper = styled.header`
 
 const HomeLink = styled(Link)``;
 
-const Logo = styled.img`
-  height: 40px;
-`;
+const Logo = styled(Image)``;
 
 const LoginLink = styled.a`
   transition: 0.2s color;
@@ -32,10 +31,7 @@ const Header = () => (
   <Wrapper>
     <HomeLink href="/" passHref>
       <a>
-        <Logo
-          src="https://placeholder.com/wp-content/uploads/2018/10/placeholder.com-logo1.png"
-          alt="Logo"
-        />
+        <Logo src="/logo.png" alt="Heureka" width={180} height={40} />
       </a>
     </HomeLink>
     <Link href="/login" passHref>
