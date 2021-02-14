@@ -4,34 +4,23 @@ import { useRouter } from 'next/router';
 import Container from 'components/UI/Container';
 import Title from 'components/UI/Title';
 
-import { Product, updateProduct } from 'db/product';
+import { createProduct, Product } from 'db/product';
 
 import ProductForm from '../Form';
 
-type Props = {
-  product: Product;
-};
-
-const ProductDetail = ({ product }: Props) => {
-  const {
-    id,
-    title,
-    description,
-    image,
-    price,
-    slug,
-    createdAt,
-    updatedAt,
-  } = product;
-
+const ProductDetail = () => {
   const [formValues, setFormValues] = useState<Product>({
-    title,
-    description,
-    image,
-    price,
-    slug,
-    createdAt,
-    updatedAt,
+    title: '',
+    description: '',
+    image: {
+      url: '',
+      alt: '',
+    },
+    price: {
+      value: 0,
+      currency: 'CZK',
+    },
+    slug: '',
   });
   const [isSubmitting, setSubmitting] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
@@ -43,7 +32,7 @@ const ProductDetail = ({ product }: Props) => {
     setError('');
     setSubmitting(true);
     try {
-      updateProduct(id as string, formValues);
+      createProduct(formValues);
       push('/');
     } catch (err) {
       setError(
@@ -93,7 +82,7 @@ const ProductDetail = ({ product }: Props) => {
 
   return (
     <Container>
-      <Title>{product.title}</Title>
+      <Title>Add New Product</Title>
 
       <ProductForm
         formValues={formValues}
@@ -101,7 +90,7 @@ const ProductDetail = ({ product }: Props) => {
         handleSubmit={handleSubmit}
         error={error}
         isSubmitting={isSubmitting}
-        submitButtonLabel="Update"
+        submitButtonLabel="Create"
       />
     </Container>
   );

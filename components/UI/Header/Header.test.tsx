@@ -12,5 +12,5 @@ test('Test Header Renders', async () => {
     </ThemeProvider>
   );
 
-  expect(screen.getByText('Login')).toHaveAttribute('title', 'Login');
+  expect(screen.getByText('Logout')).toHaveAttribute('title', 'Logout');
 });
