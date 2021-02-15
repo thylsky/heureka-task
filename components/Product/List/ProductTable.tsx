@@ -6,7 +6,13 @@ import { formatAmount } from 'utils';
 
 type Props = {
   products: Product[];
-  onRowClick: (input: Product) => void;
+  onRowClick: (
+    e:
+      | React.MouseEvent<HTMLTableRowElement, MouseEvent>
+      | React.KeyboardEvent<HTMLTableRowElement>,
+    input: Product
+  ) => void;
+  deleteProduct: (input: string) => Promise<void>;
 };
 
 const Table = styled.table`
@@ -60,7 +66,7 @@ const Td = styled.td`
   }
 `;
 
-const ProductTable = ({ products, onRowClick }: Props) => {
+const ProductTable = ({ products, onRowClick, deleteProduct }: Props) => {
   return (
     <Table>
       <THead>
@@ -68,14 +74,33 @@ const ProductTable = ({ products, onRowClick }: Props) => {
           <Th>Product name</Th>
           <Th>Price</Th>
           <Th>Description</Th>
+          <Th>Delete</Th>
         </Tr>
       </THead>
       <TBody>
         {products.map((product, i: number) => (
-          <Tr key={i} onClick={() => onRowClick(product)}>
+          <Tr
+            key={i}
+            onClick={e => onRowClick(e, product)}
+            onKeyDown={e => onRowClick(e, product)}
+            role="link"
+            tabIndex={i}
+          >
             <Td>{product.title}</Td>
             <Td>{formatAmount(product.price.value, product.price.currency)}</Td>
             <Td>{product.description}</Td>
+            <Td
+              title="Delete"
+              onClick={() => {
+                const response = confirm(
+                  `Are you sure you want to delete ${product.title}`
+                );
+                if (response === true) deleteProduct(product.id!);
+              }}
+              style={{ textAlign: 'center' }}
+            >
+              <span title="Delete">🗑</span>
+            </Td>
           </Tr>
         ))}
       </TBody>

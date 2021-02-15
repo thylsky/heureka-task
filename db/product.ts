@@ -53,6 +53,18 @@ export const updateProduct = async (id: string, product: Product) => {
   }
 };
 
+export const deleteProduct = async (id: string) => {
+  const documentRef = await db.collection('product').doc(id);
+  documentRef
+    .update({ deletedAt: firebase.firestore.FieldValue.serverTimestamp() })
+    .then(() => {
+      console.log('Document successfully deleted!');
+    })
+    .catch(error => {
+      console.error('Error removing document: ', error);
+    });
+};
+
 export const getProducts = () =>
   db
     .collection('product')
@@ -97,4 +109,4 @@ export const getProductBySlug = async (slug: string) => {
 };
 
 export const listenToProducts = (observer: Observer) =>
-  db.collection('product').onSnapshot(observer);
+  db.collection('product').where('deletedAt', '==', null).onSnapshot(observer);

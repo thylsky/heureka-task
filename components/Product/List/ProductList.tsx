@@ -6,7 +6,7 @@ import Container from 'components/UI/Container';
 import Title from 'components/UI/Title/';
 import Switch from 'components/UI/Switch';
 
-import { listenToProducts, Product } from 'db/product';
+import { deleteProduct, listenToProducts, Product } from 'db/product';
 
 import ProductCard from './ProductCard';
 import ProductTable from './ProductTable';
@@ -36,8 +36,27 @@ const ProductList = () => {
     });
   }, [setProducts]);
 
-  const onRowClick = (item: Product) => {
-    push('/[id]', `/${item.id}`);
+  const onRowClick = (
+    event:
+      | React.MouseEvent<HTMLTableRowElement, MouseEvent>
+      | React.KeyboardEvent<HTMLTableRowElement>,
+    product: Product
+  ) => {
+    if (
+      (event.target as HTMLSpanElement | HTMLTableCellElement).title !==
+        'Delete' &&
+      event.type === 'click'
+    ) {
+      push('/[id]', `/${product.id}`);
+    }
+
+    // Controlled by Keyboard
+    if (
+      (event.type === 'keydown' &&
+        (event as React.KeyboardEvent<HTMLTableRowElement>).key) === 'Enter'
+    ) {
+      push('/[id]', `/${product.id}`);
+    }
   };
 
   return (
@@ -53,7 +72,11 @@ const ProductList = () => {
       {error && <div style={{ color: 'red' }}>{error}</div>}
 
       {displayMode === 'table' && (
-        <ProductTable products={products} onRowClick={onRowClick} />
+        <ProductTable
+          products={products}
+          onRowClick={onRowClick}
+          deleteProduct={deleteProduct}
+        />
       )}
 
       {displayMode === 'grid' && (
