@@ -26,9 +26,10 @@ const ProductList = () => {
   useEffect(() => {
     return listenToProducts({
       next: (querySnapshot: QuerySnapshot) => {
-        const updatedProducts = querySnapshot.docs.map(docSnapshot =>
-          docSnapshot.data()
-        );
+        const updatedProducts = querySnapshot.docs.map(docSnapshot => ({
+          id: docSnapshot.id,
+          ...docSnapshot.data(),
+        }));
         setProducts(updatedProducts as Product[]);
       },
       error: () => setError('products-list-get-fail'),
@@ -36,7 +37,7 @@ const ProductList = () => {
   }, [setProducts]);
 
   const onRowClick = (item: Product) => {
-    push('/[slug]', `/${item.slug}`);
+    push('/[id]', `/${item.id}`);
   };
 
   return (

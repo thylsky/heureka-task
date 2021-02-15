@@ -5,15 +5,15 @@ import { useRouter } from 'next/router';
 
 import ProductDetail from 'components/Product/Detail';
 
-import { getProductBySlug, Product } from 'db/product';
+import { getProductById, Product } from 'db/product';
 
 const Home: NextPage = () => {
   const { query } = useRouter();
   const [product, setProduct] = useState<Product | undefined | void>();
 
   useEffect(() => {
-    if (query.slug !== undefined && !product) {
-      getProductBySlug(query.slug as string).then(data => setProduct(data));
+    if (query.id !== undefined && !product) {
+      getProductById(query.id as string).then(data => setProduct(data));
     }
   }, [product, query.slug, setProduct]);
 

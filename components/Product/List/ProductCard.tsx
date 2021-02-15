@@ -17,7 +17,7 @@ type Props = {
 
 const ProductCard = ({ product }: Props) => {
   return (
-    <Link href="/[slug]" as={`/${product.slug}`} passHref>
+    <Link href="/[id]" as={`/${product.id}`} passHref>
       <Card>
         <ProductImage src={product.image.url} alt={product.image.alt} />
         <ProductTitle>{product.title}</ProductTitle>
