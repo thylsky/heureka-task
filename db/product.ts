@@ -1,5 +1,6 @@
 import { FirestoreError, QuerySnapshot } from '@firebase/firestore-types';
 import { db } from '../lib/db';
+import firebase from '../lib/firebase';
 
 export type Product = {
   id?: string;
@@ -25,11 +26,12 @@ export type Observer = {
 };
 
 export const createProduct = async (product: Product) => {
-  const now = new Date();
   try {
-    const docRef = await db
-      .collection('product')
-      .add({ ...product, createdAt: now, updatedAt: now });
+    const docRef = await db.collection('product').add({
+      ...product,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
     console.log('Document written with ID: ', docRef.id);
   } catch (error) {
     console.error('Error adding document: ', error);
@@ -37,12 +39,14 @@ export const createProduct = async (product: Product) => {
 };
 
 export const updateProduct = async (id: string, product: Product) => {
-  const now = new Date();
   try {
     const docRef = await db
       .collection('product')
       .doc(id)
-      .set({ ...product, updatedAt: now });
+      .set({
+        ...product,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
     console.log('Document updated with ID: ', docRef);
   } catch (error) {
     console.error('Error updating document: ', error);

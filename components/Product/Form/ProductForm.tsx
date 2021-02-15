@@ -38,6 +38,15 @@ const ProductForm = ({
         autoComplete="off"
         required
       />
+      <FormInput
+        onChange={handleChange}
+        value={formValues.slug}
+        label="Slug"
+        name="slug"
+        type="text"
+        autoComplete="off"
+        required
+      />
       <TextArea
         onChange={handleChange}
         label="Description"
