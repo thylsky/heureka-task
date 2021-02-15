@@ -15,7 +15,7 @@ const Home: NextPage = () => {
     if (query.id !== undefined && !product) {
       getProductById(query.id as string).then(data => setProduct(data));
     }
-  }, [product, query.slug, setProduct]);
+  }, [product, query.id, setProduct]);
 
   if (!product) return <>Loading</>;
 

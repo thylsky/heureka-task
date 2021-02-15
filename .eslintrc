@@ -28,13 +28,16 @@
       "error",
       { "functions": true, "classes": true }
     ],
+    "@typescript-eslint/no-non-null-assertion": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "class-methods-use-this": "off",
     "import/no-extraneous-dependencies": "off",
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "import/extensions": "off",
-    "react/display-name": "off"
+    "react/display-name": "off",
+    "no-alert": "off",
+    "no-restricted-globals": "off"
   },
   "overrides": [
     {

@@ -43,7 +43,7 @@ const ProductDetail = ({ product }: Props) => {
     setError('');
     setSubmitting(true);
     try {
-      updateProduct(id as string, formValues);
+      updateProduct(id!, formValues);
       push('/');
     } catch (err) {
       setError(
