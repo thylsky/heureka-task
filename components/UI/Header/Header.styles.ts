@@ -17,7 +17,7 @@ export const Wrapper = styled.header`
 `;
 
 export const AddNewButton = styled.a`
-  position: absolute;
+  position: fixed;
   display: grid;
   place-items: center;
   right: 12px;
