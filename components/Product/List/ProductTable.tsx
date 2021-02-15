@@ -52,6 +52,16 @@ const ProductTable = ({ products }: Props) => {
     ) {
       push('/[id]', `/${product.id}`);
     }
+
+    console.log((event as React.KeyboardEvent<HTMLTableRowElement>).key);
+    if (
+      (event.type === 'keydown' &&
+        ['Backspace', 'Delete'].indexOf(
+          (event as React.KeyboardEvent<HTMLTableRowElement>).key
+        )) > -1
+    ) {
+      deleteProduct(product.id!);
+    }
   };
 
   return (
