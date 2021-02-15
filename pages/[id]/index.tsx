@@ -4,6 +4,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import ProductDetail from 'components/Product/Detail';
+import Spinner from 'components/UI/Spinner';
 
 import { getProductById, Product } from 'db/product';
 
@@ -17,7 +18,7 @@ const Home: NextPage = () => {
     }
   }, [product, query.id, setProduct]);
 
-  if (!product) return <>Loading</>;
+  if (!product) return <Spinner />;
 
   return (
     <>
