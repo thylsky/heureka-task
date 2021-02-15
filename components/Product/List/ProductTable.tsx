@@ -74,7 +74,7 @@ const ProductTable = ({ products, onRowClick, deleteProduct }: Props) => {
           <Th>Product name</Th>
           <Th>Price</Th>
           <Th>Description</Th>
-          <Th>Delete</Th>
+          <Th style={{ textAlign: 'center' }}>Delete</Th>
         </Tr>
       </THead>
       <TBody>
