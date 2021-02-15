@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
 import { QuerySnapshot } from '@firebase/firestore-types';
 
 import Container from 'components/UI/Container';
 import Title from 'components/UI/Title/';
 import Switch from 'components/UI/Switch';
 
-import { deleteProduct, listenToProducts, Product } from 'db/product';
+import { listenToProducts, Product } from 'db/product';
 
 import ProductCard from './ProductCard';
 import ProductTable from './ProductTable';
@@ -21,7 +20,6 @@ const ProductList = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string>();
   const [displayMode, setDisplayMode] = useState<string>('table');
-  const { push } = useRouter();
 
   useEffect(() => {
     return listenToProducts({
@@ -36,29 +34,6 @@ const ProductList = () => {
     });
   }, [setProducts]);
 
-  const onRowClick = (
-    event:
-      | React.MouseEvent<HTMLTableRowElement, MouseEvent>
-      | React.KeyboardEvent<HTMLTableRowElement>,
-    product: Product
-  ) => {
-    if (
-      (event.target as HTMLSpanElement | HTMLTableCellElement).title !==
-        'Delete' &&
-      event.type === 'click'
-    ) {
-      push('/[id]', `/${product.id}`);
-    }
-
-    // Controlled by Keyboard
-    if (
-      (event.type === 'keydown' &&
-        (event as React.KeyboardEvent<HTMLTableRowElement>).key) === 'Enter'
-    ) {
-      push('/[id]', `/${product.id}`);
-    }
-  };
-
   return (
     <Container>
       <TitleSwitchWrapper>
@@ -71,13 +46,7 @@ const ProductList = () => {
       </TitleSwitchWrapper>
       {error && <div style={{ color: 'red' }}>{error}</div>}
 
-      {displayMode === 'table' && (
-        <ProductTable
-          products={products}
-          onRowClick={onRowClick}
-          deleteProduct={deleteProduct}
-        />
-      )}
+      {displayMode === 'table' && <ProductTable products={products} />}
 
       {displayMode === 'grid' && (
         <ProductCardWrapper>

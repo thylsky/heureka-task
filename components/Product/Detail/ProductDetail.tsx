@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import Container from 'components/UI/Container';
+import DeleteButton from 'components/UI/DeleteButton';
 import Title from 'components/UI/Title';
 
-import { Product, updateProduct } from 'db/product';
+import { deleteProduct, Product, updateProduct } from 'db/product';
 
+import { TitleDeleteButtonWrapper } from './ProductDetail.styles';
 import ProductForm from '../Form';
 
 type Props = {
@@ -91,9 +93,22 @@ const ProductDetail = ({ product }: Props) => {
     }
   };
 
+  const handleDeleteButton = () => {
+    const response = confirm(
+      `Are you sure you want to delete ${product.title}`
+    );
+    if (response === true) {
+      deleteProduct(product.id!);
+      push('/');
+    }
+  };
+
   return (
     <Container>
-      <Title>{product.title}</Title>
+      <TitleDeleteButtonWrapper>
+        <Title>{product.title}</Title>
+        <DeleteButton onClick={handleDeleteButton} width={24} height={24} />
+      </TitleDeleteButtonWrapper>
 
       <ProductForm
         formValues={formValues}

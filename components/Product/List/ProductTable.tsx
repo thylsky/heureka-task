@@ -1,72 +1,59 @@
 import React from 'react';
-import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
-import { Product } from 'db/product';
+import DeleteButton from 'components/UI/DeleteButton';
+
+import { deleteProduct, Product } from 'db/product';
 import { formatAmount } from 'utils';
+
+import {
+  Table,
+  THead,
+  Tr,
+  Th,
+  TBody,
+  Td,
+  TdActions,
+} from './ProductTable.styles';
 
 type Props = {
   products: Product[];
-  onRowClick: (
-    e:
-      | React.MouseEvent<HTMLTableRowElement, MouseEvent>
-      | React.KeyboardEvent<HTMLTableRowElement>,
-    input: Product
-  ) => void;
-  deleteProduct: (input: string) => Promise<void>;
 };
 
-const Table = styled.table`
-  width: 100%;
-  border-spacing: 0;
-  text-align: left;
-  font-size: 12px;
+const ProductTable = ({ products }: Props) => {
+  const { push } = useRouter();
 
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}) {
-    font-size: 16px;
-  }
-`;
+  const handleDeleteButton = (product: Product) => {
+    const response = confirm(
+      `Are you sure you want to delete ${product.title}`
+    );
+    if (response === true) deleteProduct(product.id!);
+  };
 
-const THead = styled.thead``;
+  const onRowClick = (
+    event:
+      | React.MouseEvent<HTMLTableRowElement, MouseEvent>
+      | React.KeyboardEvent<HTMLTableRowElement>,
+    product: Product
+  ) => {
+    if (
+      (event.target as HTMLSpanElement | HTMLTableCellElement).title !==
+        'Delete' &&
+      event.type === 'click' &&
+      (event.target as SVGPathElement).tagName !== 'path'
+    ) {
+      push('/[id]', `/${product.id}`);
+    }
 
-const TBody = styled.tbody``;
+    // Controlled by Keyboard
+    if (
+      (event.type === 'keydown' &&
+        (event as React.KeyboardEvent<HTMLTableRowElement>).key) === 'Enter'
+    ) {
+      push('/[id]', `/${product.id}`);
+    }
+  };
 
-const Tr = styled.tr`
-  transition: 0.3s background;
-
-  :hover {
-    background: #fafafa;
-  }
-`;
-
-const Th = styled.th`
-  color: rgb(0 0 0 / 85%);
-  font-weight: bold;
-  background: #fafafa;
-  border-bottom: 1px solid #f0f0f0;
-  padding: 8px;
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding: 16px;
-  }
-`;
-
-const Td = styled.td`
-  border-bottom: 1px solid #f0f0f0;
-  transition: background 0.3s;
-  padding: 8px;
-  max-width: 30vw;
-  white-space: nowrap;
-  overflow-wrap: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  cursor: pointer;
-
-  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
-    padding: 16px;
-  }
-`;
-
-const ProductTable = ({ products, onRowClick, deleteProduct }: Props) => {
   return (
     <Table>
       <THead>
@@ -89,18 +76,13 @@ const ProductTable = ({ products, onRowClick, deleteProduct }: Props) => {
             <Td>{product.title}</Td>
             <Td>{formatAmount(product.price.value, product.price.currency)}</Td>
             <Td>{product.description}</Td>
-            <Td
+            <TdActions
               title="Delete"
-              onClick={() => {
-                const response = confirm(
-                  `Are you sure you want to delete ${product.title}`
-                );
-                if (response === true) deleteProduct(product.id!);
-              }}
+              onClick={() => handleDeleteButton(product)}
               style={{ textAlign: 'center' }}
             >
-              <span title="Delete">🗑</span>
-            </Td>
+              <DeleteButton height={24} width={24} />
+            </TdActions>
           </Tr>
         ))}
       </TBody>
