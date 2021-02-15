@@ -9,7 +9,7 @@ import { getProductById, Product } from 'db/product';
 
 const Home: NextPage = () => {
   const { query } = useRouter();
-  const [product, setProduct] = useState<Product | undefined | void>();
+  const [product, setProduct] = useState<Product | undefined>();
 
   useEffect(() => {
     if (query.id !== undefined && !product) {

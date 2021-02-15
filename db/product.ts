@@ -69,12 +69,12 @@ export const getProductById = async (id: string) => {
 
   try {
     const doc = await docRef.get();
-    if (doc.exists) return doc.data();
+    if (doc.exists) return { id, ...doc.data() } as Product;
   } catch (error) {
     console.log('Error getting document:', error);
   }
 
-  return [];
+  return undefined;
 };
 
 export const getProductBySlug = async (slug: string) => {
@@ -92,6 +92,7 @@ export const getProductBySlug = async (slug: string) => {
     })
     .catch(error => {
       console.error('Error getting documents: ', error);
+      return undefined;
     });
 };
 
