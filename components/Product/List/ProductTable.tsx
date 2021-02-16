@@ -70,7 +70,7 @@ const ProductTable = ({ products }: Props) => {
         <Tr>
           <Th>Product name</Th>
           <Th>Price</Th>
-          <Th>Description</Th>
+          <Th tablet>Description</Th>
           <Th style={{ textAlign: 'center' }}>Delete</Th>
         </Tr>
       </THead>
@@ -85,7 +85,7 @@ const ProductTable = ({ products }: Props) => {
           >
             <Td>{product.title}</Td>
             <Td>{formatAmount(product.price.value, product.price.currency)}</Td>
-            <Td>{product.description}</Td>
+            <Td tablet>{product.description}</Td>
             <TdActions
               title="Delete"
               onClick={() => handleDeleteButton(product)}
