@@ -13,12 +13,12 @@ import ProductCard from './ProductCard';
 import ProductTable from './ProductTable';
 import { ProductCardWrapper, TitleSwitchWrapper } from './ProductList.styles';
 
-const SWITCH_OPTIONS = [
-  { value: 'table', label: intl.get('TABLE') },
-  { value: 'grid', label: intl.get('GRID') },
-];
-
 const ProductList = () => {
+  const SWITCH_OPTIONS = [
+    { value: 'table', label: intl.get('TABLE') },
+    { value: 'grid', label: intl.get('GRID') },
+  ];
+
   const [products, setProducts] = useState<Product[]>([]);
   const [error, setError] = useState<string>();
   const [displayMode, setDisplayMode] = useState<string>('table');
