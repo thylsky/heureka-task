@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import intl from 'react-intl-universal';
 
 import Container from 'components/UI/Container';
 import DeleteButton from 'components/UI/DeleteButton';
@@ -95,7 +96,7 @@ const ProductDetail = ({ product }: Props) => {
 
   const handleDeleteButton = () => {
     const response = confirm(
-      `Are you sure you want to delete ${product.title}`
+      intl.get('PRODUCT.DELETE_CONFIRM', { productName: product.title })
     );
     if (response === true) {
       deleteProduct(product.id!);

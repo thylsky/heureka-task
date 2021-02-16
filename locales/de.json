@@ -4,7 +4,8 @@
     "TITLE": "Produktname",
     "PRICE": "Preis",
     "DESCRIPTION": "Beschreibung",
-    "DELETE": "Löschen"
+    "DELETE": "Löschen",
+    "DELETE_CONFIRM": "Möchten Sie {productName} wirklich löschen?"
   },
   "USER": {
     "LOGIN": "Anmeldung",

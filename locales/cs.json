@@ -4,7 +4,8 @@
     "TITLE": "Název produktu",
     "PRICE": "Cena",
     "DESCRIPTION": "Popis",
-    "DELETE": "Smazat"
+    "DELETE": "Smazat",
+    "DELETE_CONFIRM": "Opravdu chcete smazat {productName}?"
   },
   "USER": {
     "LOGIN": "Přihlásit",

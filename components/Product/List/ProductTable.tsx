@@ -24,9 +24,9 @@ type Props = {
 const ProductTable = ({ products }: Props) => {
   const { push } = useRouter();
 
-  const handleDeleteButton = (product: Product) => {
+  const handleDeleteProduct = (product: Product) => {
     const response = confirm(
-      `Are you sure you want to delete ${product.title}`
+      intl.get('PRODUCT.DELETE_CONFIRM', { productName: product.title })
     );
     if (response === true) deleteProduct(product.id!);
   };
@@ -39,7 +39,7 @@ const ProductTable = ({ products }: Props) => {
   ) => {
     if (
       (event.target as HTMLSpanElement | HTMLTableCellElement).title !==
-        'Delete' &&
+        intl.get('PRODUCT.DELETE') &&
       event.type === 'click' &&
       (event.target as SVGPathElement).tagName !== 'path'
     ) {
@@ -60,7 +60,7 @@ const ProductTable = ({ products }: Props) => {
         (event as React.KeyboardEvent<HTMLTableRowElement>).key
       ) > -1
     ) {
-      deleteProduct(product.id!);
+      handleDeleteProduct(product);
     }
   };
 
@@ -88,7 +88,7 @@ const ProductTable = ({ products }: Props) => {
             <Td tablet>{product.description}</Td>
             <TdActions
               title={intl.get('PRODUCT.DELETE')}
-              onClick={() => handleDeleteButton(product)}
+              onClick={() => handleDeleteProduct(product)}
               style={{ textAlign: 'center' }}
             >
               <DeleteButton height={24} width={24} />
