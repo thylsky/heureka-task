@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import intl from 'react-intl-universal';
 
 import AddNew from 'components/UI/AddNew';
 
@@ -25,8 +26,8 @@ const Header = () => {
           <AddNew height={20} width={20} />
         </AddNewButton>
       </Link>
-      <LogoutButton title="Logout" onClick={handleLogout}>
-        Logout
+      <LogoutButton title={intl.get('USER.LOGOUT')} onClick={handleLogout}>
+        {intl.get('USER.LOGOUT')}
       </LogoutButton>
     </Wrapper>
   );

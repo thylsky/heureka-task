@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRouter } from 'next/router';
+import intl from 'react-intl-universal';
 
 import DeleteButton from 'components/UI/DeleteButton';
 
@@ -68,10 +69,10 @@ const ProductTable = ({ products }: Props) => {
     <Table>
       <THead>
         <Tr>
-          <Th>Product name</Th>
-          <Th>Price</Th>
-          <Th tablet>Description</Th>
-          <Th style={{ textAlign: 'center' }}>Delete</Th>
+          <Th>{intl.get('PRODUCT.TITLE')}</Th>
+          <Th>{intl.get('PRODUCT.PRICE')}</Th>
+          <Th tablet>{intl.get('PRODUCT.DESCRIPTION')}</Th>
+          <Th style={{ textAlign: 'center' }}>{intl.get('PRODUCT.DELETE')}</Th>
         </Tr>
       </THead>
       <TBody>
@@ -87,7 +88,7 @@ const ProductTable = ({ products }: Props) => {
             <Td>{formatAmount(product.price.value, product.price.currency)}</Td>
             <Td tablet>{product.description}</Td>
             <TdActions
-              title="Delete"
+              title={intl.get('PRODUCT.DELETE')}
               onClick={() => handleDeleteButton(product)}
               style={{ textAlign: 'center' }}
             >

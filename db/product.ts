@@ -1,6 +1,15 @@
 import { FirestoreError, QuerySnapshot } from '@firebase/firestore-types';
-import { db } from '../lib/db';
-import firebase from '../lib/firebase';
+import { Languages } from 'locales';
+import { db } from 'lib/db';
+import firebase from 'lib/firebase';
+
+type LanguageVariables = {
+  [key in Languages]: {
+    title: string;
+    description: string;
+    slug: string;
+  };
+};
 
 export type Product = {
   id?: string;
@@ -17,6 +26,8 @@ export type Product = {
   };
   createdAt?: Date;
   updatedAt?: Date;
+  deletedAt?: Date | null;
+  languages?: LanguageVariables;
 };
 
 export type Observer = {
@@ -31,6 +42,7 @@ export const createProduct = async (product: Product) => {
       ...product,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      deletedAt: null,
     });
     console.log('Document written with ID: ', docRef.id);
   } catch (error) {

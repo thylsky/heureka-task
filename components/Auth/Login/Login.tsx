@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import intl from 'react-intl-universal';
 
 import ErrorMessage from 'components/UI/ErrorMessage';
 import FormInput from 'components/UI/Input';
@@ -60,7 +61,7 @@ const Login = () => {
       <Card>
         <LogoWrapper>
           <Link href="/" passHref>
-            <a title="Home">
+            <a title={intl.get('BACK')}>
               <Logo src="/logo.png" alt="Heureka" height={40} width={180} />
             </a>
           </Link>
@@ -70,7 +71,7 @@ const Login = () => {
           {error && <ErrorMessage>{error}</ErrorMessage>}
           <FormInput
             onChange={handleChange}
-            label="E-mail"
+            label={intl.get('USER.EMAIL')}
             name="email"
             type="email"
             autoComplete="off"
@@ -79,14 +80,14 @@ const Login = () => {
 
           <FormInput
             onChange={handleChange}
-            label="Password"
+            label={intl.get('USER.PASSWORD')}
             name="password"
             type="password"
             required
           />
 
           <SubmitButton type="submit" disabled={isSubmitting}>
-            Login
+            {intl.get('USER.LOGIN')}
           </SubmitButton>
         </form>
       </Card>

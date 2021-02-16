@@ -1,0 +1,18 @@
+{
+  "LIST_OF_PRODUCTS": "Přehled produktů",
+  "PRODUCT": {
+    "TITLE": "Název produktu",
+    "PRICE": "Cena",
+    "DESCRIPTION": "Popis",
+    "DELETE": "Smazat"
+  },
+  "USER": {
+    "LOGIN": "Přihlásit",
+    "LOGOUT": "Odhlásit",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Heslo"
+  },
+  "TABLE": "Tabulka",
+  "GRID": "Mřížka",
+  "BACK": "Zpět"
+}

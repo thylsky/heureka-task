@@ -1,0 +1,18 @@
+{
+  "LIST_OF_PRODUCTS": "List of Products",
+  "PRODUCT": {
+    "TITLE": "Product Title",
+    "PRICE": "Price",
+    "DESCRIPTION": "Description",
+    "DELETE": "Delete"
+  },
+  "USER": {
+    "LOGIN": "Login",
+    "LOGOUT": "Logout",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Password"
+  },
+  "TABLE": "Table",
+  "GRID": "Grid",
+  "BACK": "Back"
+}
