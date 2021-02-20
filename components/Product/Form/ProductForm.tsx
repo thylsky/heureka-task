@@ -6,6 +6,7 @@ import FormInput from 'components/UI/Input';
 import TextArea from 'components/UI/TextArea';
 
 import { Product } from 'db/product';
+import { Form } from './ProductForm.styles';
 
 type Props = {
   formValues: Product;
@@ -27,7 +28,7 @@ const ProductForm = ({
   error,
 }: Props) => {
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
       {error && <ErrorMessage>{error}</ErrorMessage>}
       <FormInput
         onChange={handleChange}
@@ -37,6 +38,7 @@ const ProductForm = ({
         type="text"
         autoComplete="off"
         required
+        col={{ md: 6 }}
       />
       <FormInput
         onChange={handleChange}
@@ -46,6 +48,7 @@ const ProductForm = ({
         type="text"
         autoComplete="off"
         required
+        col={{ md: 6 }}
       />
       <TextArea
         onChange={handleChange}
@@ -63,6 +66,7 @@ const ProductForm = ({
         type="text"
         autoComplete="off"
         required
+        col={{ md: 6 }}
       />
       <FormInput
         onChange={handleChange}
@@ -72,6 +76,7 @@ const ProductForm = ({
         type="text"
         autoComplete="off"
         required
+        col={{ md: 6 }}
       />
       <FormInput
         onChange={handleChange}
@@ -81,6 +86,7 @@ const ProductForm = ({
         type="number"
         autoComplete="off"
         required
+        col={{ xs: 7, md: 10 }}
       />
 
       <FormInput
@@ -91,12 +97,14 @@ const ProductForm = ({
         type="text"
         autoComplete="off"
         required
+        col={{ xs: 5, md: 2 }}
+        options={['CZK', 'EUR', 'USD', 'YEN']}
       />
 
       <Button type="submit" disabled={isSubmitting}>
         {submitButtonLabel}
       </Button>
-    </form>
+    </Form>
   );
 };
 

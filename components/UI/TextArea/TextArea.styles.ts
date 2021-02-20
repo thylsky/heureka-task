@@ -1,7 +1,27 @@
 import styled from 'styled-components';
+import { ColTypes } from 'components/UI/types';
 
-export const FormGroup = styled.div`
+type FormGroupProps = ColTypes;
+
+export const FormGroup = styled.div<FormGroupProps>`
   padding-bottom: 32px;
+  grid-column: span ${({ col }) => col?.xs || 12};
+
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.sm}) {
+    ${({ col }) => col?.sm && `grid-column: span ${col.sm}`};
+  }
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.md}) {
+    ${({ col }) => col?.md && `grid-column: span ${col.md}`};
+  }
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.lg}) {
+    ${({ col }) => col?.lg && `grid-column: span ${col.lg}`};
+  }
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.xl}) {
+    ${({ col }) => col?.xl && `grid-column: span ${col.xl}`};
+  }
+  @media screen and (min-width: ${({ theme }) => theme.breakpoints.xxl}) {
+    ${({ col }) => col?.xxl && `grid-column: span ${col.xxl}`};
+  }
 `;
 
 export const Label = styled.label`

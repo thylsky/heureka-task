@@ -1,7 +1,8 @@
 import React, { TextareaHTMLAttributes } from 'react';
+import { ColTypes } from 'components/UI/types';
 import { FormGroup, TextArea, Label } from './TextArea.styles';
 
-type Props = {
+type Props = ColTypes & {
   label: string;
 };
 
