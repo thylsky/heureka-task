@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import intl from 'react-intl-universal';
 
@@ -59,56 +59,75 @@ const ProductDetail = ({ product }: Props) => {
     }
   };
 
-  const handleSecondLevelChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const split = e.target.name.split('.');
+  const handleSecondLevelChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const split = e.target.name.split('.');
 
-    setFormValues(prevState => {
-      return {
-        ...prevState,
-        [split[0]]: {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          ...prevState[split[0]],
-          [e.target.name.split('.')[1]]: e.target.value,
-        },
-      };
-    });
-  };
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const isSecondLevel = e.target.name.split('.').length === 2;
-
-    if (isSecondLevel) {
-      handleSecondLevelChange(e);
-    } else {
       setFormValues(prevState => {
         return {
           ...prevState,
-          [e.target.name]: e.target.value,
+          [split[0]]: {
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            ...prevState[split[0]],
+            [e.target.name.split('.')[1]]: e.target.value,
+          },
         };
       });
-    }
-  };
+    },
+    [setFormValues]
+  );
 
-  const handleDeleteButton = () => {
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const isSecondLevel = e.target.name.split('.').length === 2;
+
+      if (isSecondLevel) {
+        handleSecondLevelChange(e);
+      } else {
+        setFormValues(prevState => {
+          return {
+            ...prevState,
+            [e.target.name]: e.target.value,
+          };
+        });
+      }
+    },
+    [handleSecondLevelChange]
+  );
+
+  const handleDeleteProduct = useCallback(() => {
     const response = confirm(
-      intl.get('PRODUCT.DELETE_CONFIRM', { productName: product.title })
+      intl.get('PRODUCT.DELETE_CONFIRM', { productName: product?.title })
     );
-    if (response === true) {
-      deleteProduct(product.id!);
-      push('/');
-    }
-  };
+    if (response === true) deleteProduct(product!.id!);
+  }, [product]);
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (
+        document.activeElement?.tagName === 'BODY' &&
+        ['Backspace', 'Delete'].indexOf(event.key) > -1
+      ) {
+        handleDeleteProduct();
+      }
+    },
+    [handleDeleteProduct]
+  );
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    // cleanup this component
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   return (
     <Container>
       <TitleDeleteButtonWrapper>
         <Title>{product.title}</Title>
-        <DeleteButton onClick={handleDeleteButton} width={24} height={24} />
+        <DeleteButton onClick={handleDeleteProduct} width={24} height={24} />
       </TitleDeleteButtonWrapper>
 
       <ProductForm
