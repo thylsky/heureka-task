@@ -57,6 +57,7 @@ export const updateProduct = async (id: string, product: Product) => {
       .doc(id)
       .set({
         ...product,
+        deletedAt: null,
         updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
       });
     console.log('Document updated with ID: ', docRef);
